@@ -1,4 +1,4 @@
-import {Bot} from "grammy";
+import {Bot, InlineKeyboard, InlineQueryResultBuilder} from "grammy";
 
 export const {
 
@@ -14,4 +14,13 @@ export const {
 export const bot = new Bot(token);
 
 // Sample handler for a simple echo bot
-bot.on("message:text", ctx => ctx.reply(ctx.msg.text));
+bot.on("message:text", ctx => ctx.reply("Use inline mode"));
+
+// Listen for any inline query.
+bot.on("inline_query", async ctx => ctx.answerInlineQuery([
+    InlineQueryResultBuilder.article("alert-test", "Alert test", {
+        reply_markup: new InlineKeyboard().text("Run test", "test")
+    }).text("Alert test")
+]));
+
+bot.callbackQuery("test", ctx => ctx.answerCallbackQuery({text: "Works ?", show_alert: true}));
