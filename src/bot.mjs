@@ -18,8 +18,11 @@ bot.on("message:text", ctx => ctx.reply("Use inline mode"));
 
 // Listen for any inline query.
 bot.on("inline_query", async ctx => ctx.answerInlineQuery([
-    InlineQueryResultBuilder.article("alert-test", "Alert test", {
-        reply_markup: new InlineKeyboard().text("Run test", "test")
+    InlineQueryResultBuilder.article("test", "Test", {
+        reply_markup: new InlineKeyboard()
+            .text("Test", "test")
+            .row()
+            .url("WebApp test", `t.me/${ctx.me.username}/test`)
     }).text("Alert test")
 ]));
 
